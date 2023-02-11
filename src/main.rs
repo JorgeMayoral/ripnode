@@ -1,6 +1,6 @@
-use std::{env, fs, thread};
 use ripnode::cli::Cli;
 use ripnode::NodeModulesDir;
+use std::{env, fs, thread};
 
 fn main() {
     let args = Cli::parse_args();
@@ -9,15 +9,18 @@ fn main() {
 
     match args.dry_run() {
         true => {
-            println!("Dry run: {} node_modules directories found", node_modules_dirs.len());
+            println!(
+                "Dry run: {} node_modules directories found",
+                node_modules_dirs.len()
+            );
             for dir in node_modules_dirs {
-                println!("{}: {}", dir.path().display(), dir.size());
+                println!("{dir}");
             }
-        },
+        }
         false => {
             let mut handles = Vec::new();
             for dir in node_modules_dirs {
-                println!("Deleting {}: {}", dir.path().display(), dir.size());
+                println!("Deleting {dir}");
                 let handle = thread::spawn(move || {
                     fs::remove_dir_all(dir.path()).expect("Failed to delete directory");
                 });
@@ -26,7 +29,6 @@ fn main() {
             for handle in handles.into_iter() {
                 handle.join().expect("Failed to join thread");
             }
-        },
+        }
     }
-
 }
