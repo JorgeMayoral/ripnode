@@ -1,5 +1,5 @@
 use ripnode::cli::Cli;
-use ripnode::NodeModulesDir;
+use ripnode::dir::NodeModulesDir;
 use std::{env, fs, thread};
 
 fn main() {
