@@ -3,12 +3,12 @@ use std::path::{Path, PathBuf};
 use std::{env, fs};
 
 #[derive(Clone)]
-pub struct NodeModulesDir {
+pub struct Dir {
     path: PathBuf,
     size: String,
 }
 
-impl NodeModulesDir {
+impl Dir {
     pub fn new(path: PathBuf) -> Self {
         let size = fs_extra::dir::get_size(&path).expect("Failed to get directory size");
         let size_str = bytesize::ByteSize::b(size).to_string();
@@ -18,21 +18,21 @@ impl NodeModulesDir {
         }
     }
 
-    pub fn get_node_modules_dirs(path: &Path, node_modules_dirs: Option<Vec<Self>>) -> Vec<Self> {
-        let mut node_modules_dirs = node_modules_dirs.unwrap_or_default();
+    pub fn get_dirs(path: &Path, found_dirs: Option<Vec<Self>>, target_dir_name: String) -> Vec<Self> {
+        let mut found_dirs = found_dirs.unwrap_or_default();
         let dirs = fs::read_dir(path).expect("Failed to read current directory");
         for dir in dirs {
             let dir = dir.expect("Failed to read directory");
             let dir_filename = dir.file_name();
             let dir_name = dir_filename.to_str().unwrap();
-            if dir_name == "node_modules" {
-                node_modules_dirs.push(Self::new(dir.path()));
+            if dir_name == target_dir_name {
+                found_dirs.push(Self::new(dir.path()));
             } else if dir.file_type().expect("Failed to get file type").is_dir() {
-                node_modules_dirs =
-                    Self::get_node_modules_dirs(&dir.path(), Some(node_modules_dirs.clone()));
+                found_dirs =
+                    Self::get_dirs(&dir.path(), Some(found_dirs.clone()), target_dir_name.clone());
             }
         }
-        node_modules_dirs
+        found_dirs
     }
 
     pub fn path(&self) -> &PathBuf {
@@ -44,7 +44,7 @@ impl NodeModulesDir {
     }
 }
 
-impl Display for NodeModulesDir {
+impl Display for Dir {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let relative_path = self
             .path

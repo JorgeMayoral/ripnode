@@ -1,7 +1,7 @@
 [package]
 name = "ripnode"
 version = "0.1.0"
-description = "Simple tool for deleting node_modules folders"
+description = "Simple tool for deleting node_modules and other folders"
 authors = ["Jorge Mayoral Álvarez <mayoralalvarezj@gmail.com>"]
 edition = "2021"
 
