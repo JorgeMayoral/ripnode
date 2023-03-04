@@ -2,7 +2,9 @@
 name = "ripnode"
 version = "0.1.0"
 description = "Simple tool for deleting node_modules and other folders"
+license = "MIT"
 authors = ["Jorge Mayoral Álvarez <mayoralalvarezj@gmail.com>"]
+repository = "https://github.com/JorgeMayoral/ripnode"
 edition = "2021"
 
 [lib]
