@@ -18,7 +18,11 @@ impl Dir {
         }
     }
 
-    pub fn get_dirs(path: &Path, found_dirs: Option<Vec<Self>>, target_dir_name: String) -> Vec<Self> {
+    pub fn get_dirs(
+        path: &Path,
+        found_dirs: Option<Vec<Self>>,
+        target_dir_name: String,
+    ) -> Vec<Self> {
         let mut found_dirs = found_dirs.unwrap_or_default();
         let dirs = fs::read_dir(path).expect("Failed to read current directory");
         for dir in dirs {
@@ -28,8 +32,11 @@ impl Dir {
             if dir_name == target_dir_name {
                 found_dirs.push(Self::new(dir.path()));
             } else if dir.file_type().expect("Failed to get file type").is_dir() {
-                found_dirs =
-                    Self::get_dirs(&dir.path(), Some(found_dirs.clone()), target_dir_name.clone());
+                found_dirs = Self::get_dirs(
+                    &dir.path(),
+                    Some(found_dirs.clone()),
+                    target_dir_name.clone(),
+                );
             }
         }
         found_dirs
