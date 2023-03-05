@@ -7,7 +7,7 @@ authors = ["Jorge Mayoral Álvarez <mayoralalvarezj@gmail.com>"]
 repository = "https://github.com/JorgeMayoral/ripnode"
 readme = "README.md"
 homepage = "https://github.com/JorgeMayoral/ripnode"
-keywords = ["node_modules", "node", "npm", "yarn", "delete", "remove", "clean", "cli", "folder", "directory"]
+keywords = ["node_modules", "delete", "clean", "cli", "folder"]
 categories = ["command-line-utilities"]
 edition = "2021"
 
