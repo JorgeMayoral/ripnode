@@ -2,9 +2,13 @@
 name = "ripnode"
 version = "0.1.0"
 description = "Simple tool for deleting node_modules and other folders"
-license = "MIT"
+license = "MIT OR Apache-2.0"
 authors = ["Jorge Mayoral Álvarez <mayoralalvarezj@gmail.com>"]
 repository = "https://github.com/JorgeMayoral/ripnode"
+readme = "README.md"
+homepage = "https://github.com/JorgeMayoral/ripnode"
+keywords = ["node_modules", "node", "npm", "yarn", "delete", "remove", "clean", "cli", "folder", "directory"]
+categories = ["command-line-utilities"]
 edition = "2021"
 
 [lib]
