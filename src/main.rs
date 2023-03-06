@@ -9,28 +9,39 @@ fn main() {
     let dirs = Dir::get_dirs(&current_path, None, folder_name.clone());
 
     match args.dry_run() {
-        true => {
-            println!(
-                "Dry run: {} \"{}\" directories found",
-                dirs.len(),
-                folder_name
-            );
-            for dir in dirs {
-                println!("{dir}");
-            }
-        }
-        false => {
-            let mut handles = Vec::new();
-            for dir in dirs {
-                println!("Deleting {dir}");
-                let handle = thread::spawn(move || {
-                    fs::remove_dir_all(dir.path()).expect("Failed to delete directory");
-                });
-                handles.push(handle);
-            }
-            for handle in handles.into_iter() {
-                handle.join().expect("Failed to join thread");
-            }
-        }
+        true => dry_run(folder_name, &dirs),
+        false => delete_directories(dirs),
+    }
+}
+
+fn dry_run(folder_name: &String, dirs: &Vec<Dir>) {
+    let directory_text = if dirs.len() == 1 {
+        "directory"
+    } else {
+        "directories"
+    };
+    println!(
+        "Dry run:\n - {} \"{}\" {} found\n",
+        dirs.len(),
+        folder_name,
+        directory_text
+    );
+    println!("Directories to delete:");
+    for dir in dirs {
+        println!(" - {dir}");
+    }
+}
+
+fn delete_directories(dirs: Vec<Dir>) {
+    let mut handles = Vec::new();
+    for dir in dirs {
+        println!("Deleting {dir}");
+        let handle = thread::spawn(move || {
+            fs::remove_dir_all(dir.path()).expect("Failed to delete directory");
+        });
+        handles.push(handle);
+    }
+    for handle in handles.into_iter() {
+        handle.join().expect("Failed to join thread");
     }
 }
