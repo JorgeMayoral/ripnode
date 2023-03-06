@@ -1,4 +1,5 @@
 use clap::Parser;
+use clap_verbosity_flag::Verbosity;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -9,6 +10,8 @@ pub struct Cli {
     /// The name of the folder to delete
     #[arg(short, long, default_value_t = String::from("node_modules"))]
     name: String,
+    #[command(flatten)]
+    verbose: Verbosity,
 }
 
 impl Cli {
@@ -22,5 +25,9 @@ impl Cli {
 
     pub fn name(&self) -> &String {
         &self.name
+    }
+
+    pub fn verbose(&self) -> &Verbosity {
+        &self.verbose
     }
 }
