@@ -29,6 +29,8 @@ ripnode [OPTIONS]
 ```sh
 -d, --dry-run      See what would be deleted without actually deleting anything
 -n, --name <NAME>  The name of the folder to delete [default: node_modules]
+-v, --verbose...   More output per occurrence
+-q, --quiet...     Less output per occurrence
 -h, --help         Print help
 -V, --version      Print version
 ```
