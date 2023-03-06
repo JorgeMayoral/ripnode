@@ -1,8 +1,8 @@
+use log::{error, info};
+use std::error::Error;
 use std::fmt::Display;
 use std::path::{Path, PathBuf};
 use std::{env, fs};
-use std::error::Error;
-use log::{error, info};
 
 #[derive(Clone)]
 pub struct Dir {
@@ -60,10 +60,7 @@ impl Display for Dir {
             error!("Failed to get current directory");
             std::process::exit(1);
         });
-        let relative_path = self
-            .path
-            .strip_prefix(current_dir)
-            .unwrap();
+        let relative_path = self.path.strip_prefix(current_dir).unwrap();
         let relative_path_string = format!("./{}", relative_path.display());
         write!(f, "{}: {}", relative_path_string, self.size)
     }

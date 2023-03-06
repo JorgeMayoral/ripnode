@@ -1,7 +1,7 @@
+use log::{debug, error, info};
 use ripnode::cli::Cli;
 use ripnode::dir::Dir;
 use std::{env, fs, thread};
-use log::{debug, error, info};
 
 fn main() {
     let args = Cli::parse_args();
@@ -13,7 +13,11 @@ fn main() {
         std::process::exit(1);
     });
     let folder_name = args.name();
-    info!("Searching for \"{}\" in {}", folder_name, current_path.to_string_lossy());
+    info!(
+        "Searching for \"{}\" in {}",
+        folder_name,
+        current_path.to_string_lossy()
+    );
     let dirs = Dir::get_dirs(&current_path, None, folder_name.clone()).unwrap_or_else(|_| {
         error!("Failed to get directories");
         std::process::exit(1);
