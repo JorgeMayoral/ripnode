@@ -19,9 +19,7 @@ fn main() {
     } else {
         log::LevelFilter::Off
     };
-    env_logger::Builder::new()
-        .filter_level(logger_level)
-        .init();
+    env_logger::Builder::new().filter_level(logger_level).init();
     let current_path = env::current_dir().unwrap_or_else(|_| {
         error!("Failed to get current directory");
         std::process::exit(1);
