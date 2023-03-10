@@ -17,6 +17,8 @@ cargo install ripnode
 
 ## Usage
 
+By default, it will run in interactive mode, showing a TUI with the folders to delete.
+
 Directory to delete defaults to node_modules, but can be changed with the -n or --name option.
 Directory search starts from the current directory.
 
@@ -27,12 +29,13 @@ ripnode [OPTIONS]
 ### Options
 
 ```sh
--d, --dry-run      See what would be deleted without actually deleting anything
--n, --name <NAME>  The name of the folder to delete [default: node_modules]
--v, --verbose...   More output per occurrence
--q, --quiet...     Less output per occurrence
--h, --help         Print help
--V, --version      Print version
+  -d, --dry-run          See what would be deleted without actually deleting anything
+  -n, --name <NAME>      The name of the folder to delete [default: node_modules]
+      --non-interactive  Run as CLI, without TUI
+  -v, --verbose...       More output per occurrence
+  -q, --quiet...         Less output per occurrence
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 ## Purpose
