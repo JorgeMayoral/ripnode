@@ -3,7 +3,7 @@ use log::{error, info};
 use std::error::Error;
 use std::fmt::Display;
 use std::path::{Path, PathBuf};
-use std::{env, fs};
+use std::{env, fs, thread};
 
 #[derive(Clone)]
 pub struct Dir {
@@ -59,6 +59,16 @@ impl Dir {
             .iter()
             .fold(0, |acc, dir| dir.size.parse::<ByteSize>().unwrap().0 + acc);
         ByteSize::b(sum).to_string()
+    }
+
+    pub fn delete_dir(&self) -> thread::JoinHandle<()> {
+        let dir = self.to_owned();
+        thread::spawn(move || {
+            fs::remove_dir_all(dir.path()).unwrap_or_else(|_| {
+                error!("Failed to delete {}", dir.path().to_string_lossy());
+                std::process::exit(1);
+            });
+        })
     }
 }
 

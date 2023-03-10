@@ -100,6 +100,7 @@ impl App {
         if let Some(selected) = selected {
             let dir = &self.dirs.items[selected];
             self.saved_space += dir.size().parse::<ByteSize>().unwrap().0;
+            let _ = dir.delete_dir();
             self.dirs.items.remove(selected);
         }
     }

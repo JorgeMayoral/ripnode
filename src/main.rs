@@ -7,8 +7,8 @@ use log::{debug, error, info};
 use ripnode::app::App;
 use ripnode::cli::Cli;
 use ripnode::dir::Dir;
+use std::env;
 use std::error::Error;
-use std::{env, fs, thread};
 use tui::backend::CrosstermBackend;
 use tui::Terminal;
 
@@ -97,12 +97,7 @@ fn delete_directories(dirs: Vec<Dir>) {
     debug!("Starting threads to delete directories");
     for dir in dirs {
         info!("Deleting {dir}");
-        let handle = thread::spawn(move || {
-            fs::remove_dir_all(dir.path()).unwrap_or_else(|_| {
-                error!("Failed to delete {dir}");
-                std::process::exit(1);
-            })
-        });
+        let handle = dir.delete_dir();
         handles.push(handle);
     }
     debug!("All threads started");
