@@ -14,8 +14,13 @@ use tui::Terminal;
 
 fn main() {
     let args = Cli::parse_args();
+    let logger_level = if args.non_interactive() {
+        args.verbose().log_level_filter()
+    } else {
+        log::LevelFilter::Off
+    };
     env_logger::Builder::new()
-        .filter_level(args.verbose().log_level_filter())
+        .filter_level(logger_level)
         .init();
     let current_path = env::current_dir().unwrap_or_else(|_| {
         error!("Failed to get current directory");
