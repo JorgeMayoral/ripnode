@@ -35,7 +35,7 @@ fn main() {
     match args.non_interactive() {
         true => (),
         false => {
-            show_ui(dirs.clone()).unwrap_or_else(|_| {
+            show_ui(dirs).unwrap_or_else(|_| {
                 error!("Failed to show UI");
                 std::process::exit(1);
             });

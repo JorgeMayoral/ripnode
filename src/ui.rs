@@ -14,9 +14,9 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .direction(Direction::Vertical)
         .constraints(
             [
-                Constraint::Percentage(40),
-                Constraint::Percentage(5),
-                Constraint::Percentage(50),
+                Constraint::Percentage(30),
+                Constraint::Percentage(10),
+                Constraint::Percentage(55),
                 Constraint::Percentage(5),
             ]
             .as_ref(),
@@ -60,7 +60,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
     f.render_stateful_widget(items, chunks[2], &mut app.dirs.state);
 
     // Draw help
-    let paragraph = Paragraph::new("Use arrow keys to navigate. Press 'q' to quit.")
+    let paragraph = Paragraph::new("Use arrow keys to navigate. Press 'enter' to delete selected directory. Press 'q' to quit.")
         .style(Style::default().fg(Color::White))
         .alignment(Alignment::Left);
     f.render_widget(paragraph, chunks[3]);
