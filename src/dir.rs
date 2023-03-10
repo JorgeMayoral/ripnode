@@ -1,3 +1,4 @@
+use bytesize::ByteSize;
 use log::{error, info};
 use std::error::Error;
 use std::fmt::Display;
@@ -51,6 +52,13 @@ impl Dir {
 
     pub fn size(&self) -> &String {
         &self.size
+    }
+
+    pub fn sum_dirs_size(dirs: &Vec<Self>) -> String {
+        let sum = dirs
+            .iter()
+            .fold(0, |acc, dir| dir.size.parse::<ByteSize>().unwrap().0 + acc);
+        ByteSize::b(sum).to_string()
     }
 }
 
