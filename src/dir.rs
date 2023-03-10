@@ -54,7 +54,7 @@ impl Dir {
         &self.size
     }
 
-    pub fn sum_dirs_size(dirs: &Vec<Self>) -> String {
+    pub fn sum_dirs_size(dirs: &[Self]) -> String {
         let sum = dirs
             .iter()
             .fold(0, |acc, dir| dir.size.parse::<ByteSize>().unwrap().0 + acc);
