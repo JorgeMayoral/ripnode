@@ -10,6 +10,9 @@ pub struct Cli {
     /// The name of the folder to delete
     #[arg(short, long, default_value_t = String::from("node_modules"))]
     name: String,
+    /// Run as CLI, without TUI
+    #[arg(long)]
+    non_interactive: bool,
     #[command(flatten)]
     verbose: Verbosity,
 }
@@ -25,6 +28,10 @@ impl Cli {
 
     pub fn name(&self) -> &String {
         &self.name
+    }
+
+    pub fn non_interactive(&self) -> bool {
+        self.non_interactive
     }
 
     pub fn verbose(&self) -> &Verbosity {
