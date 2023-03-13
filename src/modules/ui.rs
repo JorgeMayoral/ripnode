@@ -47,9 +47,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .items
         .iter()
         .map(|i| {
-            let path_name = i.path().to_string_lossy().to_string();
-            let item_text = format!("{} ({})", path_name, i.size());
-            ListItem::new(item_text).style(Style::default())
+            ListItem::new(i.to_string()).style(Style::default())
         })
         .collect();
 
