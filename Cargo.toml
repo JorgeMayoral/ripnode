@@ -11,9 +11,6 @@ keywords = ["node_modules", "delete", "clean", "cli", "folder"]
 categories = ["command-line-utilities"]
 edition = "2021"
 
-[lib]
-path = "src/lib.rs"
-
 [[bin]]
 path = "src/main.rs"
 name = "ripnode"

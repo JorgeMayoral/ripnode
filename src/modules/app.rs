@@ -1,5 +1,5 @@
-use crate::dir::Dir;
-use crate::ui::draw_ui;
+use crate::modules::dir::Dir;
+use crate::modules::ui::draw_ui;
 use bytesize::ByteSize;
 use crossterm::event::{Event, KeyCode};
 use std::io::Stdout;

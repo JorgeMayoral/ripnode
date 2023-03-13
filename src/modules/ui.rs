@@ -1,5 +1,5 @@
-use crate::app::App;
-use crate::dir::Dir;
+use crate::modules::app::App;
+use crate::modules::dir::Dir;
 use bytesize::ByteSize;
 use std::io::Stdout;
 use tui::backend::CrosstermBackend;

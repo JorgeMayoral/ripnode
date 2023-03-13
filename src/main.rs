@@ -1,16 +1,18 @@
+use crate::modules::app::App;
+use crate::modules::cli::Cli;
+use crate::modules::dir::Dir;
 use crossterm::event::{DisableMouseCapture, EnableMouseCapture};
 use crossterm::execute;
 use crossterm::terminal::{
     disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen,
 };
 use log::{debug, error, info};
-use ripnode::app::App;
-use ripnode::cli::Cli;
-use ripnode::dir::Dir;
 use std::env;
 use std::error::Error;
 use tui::backend::CrosstermBackend;
 use tui::Terminal;
+
+mod modules;
 
 fn main() {
     let args = Cli::parse_args();
