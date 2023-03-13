@@ -38,3 +38,17 @@ impl Cli {
         &self.verbose
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_args() {
+        let args = Cli::parse_args();
+        assert!(!args.dry_run());
+        assert_eq!(args.name(), "node_modules");
+        assert!(!args.non_interactive());
+        assert_eq!(args.verbose().log_level(), Some(log::Level::Error));
+    }
+}

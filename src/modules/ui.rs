@@ -1,5 +1,5 @@
-use crate::app::App;
-use crate::dir::Dir;
+use crate::modules::app::App;
+use crate::modules::dir::Dir;
 use bytesize::ByteSize;
 use std::io::Stdout;
 use tui::backend::CrosstermBackend;
@@ -46,11 +46,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .dirs
         .items
         .iter()
-        .map(|i| {
-            let path_name = i.path().to_string_lossy().to_string();
-            let item_text = format!("{} ({})", path_name, i.size());
-            ListItem::new(item_text).style(Style::default())
-        })
+        .map(|i| ListItem::new(i.to_string()).style(Style::default()))
         .collect();
 
     let items = List::new(items)

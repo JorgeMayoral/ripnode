@@ -42,10 +42,6 @@ ripnode [OPTIONS]
 
 This is a learning exercise for me to learn Rust and keeping up with its ecosystem.
 
-## Use as a Library
-
-The API is very much not stable. Use at your own risk. Semver adherence definitely not guaranteed. Please lock to exact versions if you must.
-
 ## License
 
 Licensed under either of
