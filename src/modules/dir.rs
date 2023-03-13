@@ -80,9 +80,10 @@ impl Display for Dir {
         });
         dbg!(current_dir.to_string_lossy());
         dbg!(self.path.to_string_lossy());
-        let relative_path = self.path.strip_prefix(current_dir).unwrap_or({
-            &self.path
-        });
+        let relative_path = self
+            .path
+            .strip_prefix(current_dir)
+            .unwrap_or({ &self.path });
         let relative_path_string = format!("./{}", relative_path.display());
         write!(f, "{}: {}", relative_path_string, self.size)
     }

@@ -46,9 +46,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .dirs
         .items
         .iter()
-        .map(|i| {
-            ListItem::new(i.to_string()).style(Style::default())
-        })
+        .map(|i| ListItem::new(i.to_string()).style(Style::default()))
         .collect();
 
     let items = List::new(items)
