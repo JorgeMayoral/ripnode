@@ -15,7 +15,7 @@ impl Dir {
     pub fn new(path: PathBuf) -> Result<Self, Box<dyn Error>> {
         info!("Getting size of {}", path.to_string_lossy());
         let size = fs_extra::dir::get_size(&path)?;
-        let size_str = bytesize::ByteSize::b(size).to_string();
+        let size_str = ByteSize::b(size).to_string();
         Ok(Self {
             path,
             size: size_str,
@@ -78,8 +78,67 @@ impl Display for Dir {
             error!("Failed to get current directory");
             std::process::exit(1);
         });
-        let relative_path = self.path.strip_prefix(current_dir).unwrap();
+        dbg!(current_dir.to_string_lossy());
+        dbg!(self.path.to_string_lossy());
+        let relative_path = self.path.strip_prefix(current_dir).unwrap_or({
+            &self.path
+        });
         let relative_path_string = format!("./{}", relative_path.display());
         write!(f, "{}: {}", relative_path_string, self.size)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn create_test_dir() {
+        fs::create_dir_all("./test_dir").unwrap_or_else(|_| {
+            error!("Failed to create test directory");
+            std::process::exit(1);
+        });
+    }
+
+    #[test]
+    fn test_new() {
+        create_test_dir();
+        let dir = Dir::new(PathBuf::from("./test_dir")).unwrap();
+        assert_eq!(dir.path, PathBuf::from("./test_dir"));
+        assert_eq!(dir.size, "0 B");
+    }
+
+    #[test]
+    fn test_get_dirs() {
+        create_test_dir();
+        let dirs = Dir::get_dirs(Path::new("./"), None, "test_dir".to_string()).unwrap();
+        assert_eq!(dirs.len(), 1);
+        assert_eq!(dirs[0].path, PathBuf::from("./test_dir"));
+        assert_eq!(dirs[0].size, "0 B");
+    }
+
+    #[test]
+    fn test_sum_dirs_size() {
+        create_test_dir();
+        let dirs = Dir::get_dirs(Path::new("./"), None, "test_dir".to_string()).unwrap();
+        assert_eq!(Dir::sum_dirs_size(&dirs), "0 B");
+    }
+
+    #[test]
+    fn test_display() {
+        create_test_dir();
+        let dirs = Dir::get_dirs(Path::new("./"), None, "test_dir".to_string()).unwrap();
+        let dir = dirs[0].to_owned();
+        assert_eq!(dir.to_string(), "././test_dir: 0 B");
+    }
+
+    #[test]
+    #[ignore]
+    fn test_delete_dir() {
+        create_test_dir();
+        let dirs = Dir::get_dirs(Path::new("./"), None, "test_dir".to_string()).unwrap();
+        let dir = dirs[0].to_owned();
+        let handle = dir.delete_dir();
+        handle.join().unwrap();
+        assert!(!dir.path.exists());
     }
 }
