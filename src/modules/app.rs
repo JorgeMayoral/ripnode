@@ -1,8 +1,9 @@
 use crate::modules::dir::Dir;
 use crate::modules::ui::draw_ui;
 use bytesize::ByteSize;
-use crossterm::event::{Event, KeyCode};
+use crossterm::event::{poll, Event, KeyCode};
 use std::io::Stdout;
+use std::time::Duration;
 use tui::backend::CrosstermBackend;
 use tui::widgets::ListState;
 use tui::Terminal;
@@ -10,6 +11,7 @@ use tui::Terminal;
 pub struct StatefulList {
     pub state: ListState,
     pub items: Vec<Dir>,
+    pub handles: Vec<std::thread::JoinHandle<()>>,
 }
 
 impl StatefulList {
@@ -17,6 +19,7 @@ impl StatefulList {
         StatefulList {
             state: ListState::default(),
             items,
+            handles: vec![],
         }
     }
 
@@ -98,11 +101,10 @@ impl App {
     pub fn on_delete(&mut self) {
         let selected = self.dirs.state.selected();
         if let Some(selected) = selected {
-            let dir = &self.dirs.items[selected];
+            let dir = &mut self.dirs.items[selected];
             self.saved_space += dir.size().parse::<ByteSize>().unwrap().0;
             let handle = dir.delete_dir();
-            handle.join().unwrap();
-            self.dirs.items.remove(selected);
+            self.dirs.handles.push(handle);
         }
     }
 
@@ -115,16 +117,22 @@ impl App {
                 break;
             }
 
+            for dir in &mut self.dirs.items {
+                dir.still_exists();
+            }
+
             terminal.draw(|f| draw_ui(f, self))?;
 
-            if let Event::Key(key) = crossterm::event::read()? {
-                match key.code {
-                    KeyCode::Char('q') => self.on_quit(),
-                    KeyCode::Left => self.dirs.unselect(),
-                    KeyCode::Down => self.on_down(),
-                    KeyCode::Up => self.on_up(),
-                    KeyCode::Enter | KeyCode::Backspace => self.on_delete(),
-                    _ => {}
+            if poll(Duration::from_millis(100))? {
+                if let Event::Key(key) = crossterm::event::read()? {
+                    match key.code {
+                        KeyCode::Char('q') => self.on_quit(),
+                        KeyCode::Left => self.dirs.unselect(),
+                        KeyCode::Down => self.on_down(),
+                        KeyCode::Up => self.on_up(),
+                        KeyCode::Enter | KeyCode::Backspace => self.on_delete(),
+                        _ => {}
+                    }
                 }
             }
         }

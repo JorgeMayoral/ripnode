@@ -100,7 +100,7 @@ fn dry_run(folder_name: &String, dirs: &Vec<Dir>) {
 fn delete_directories(dirs: Vec<Dir>) {
     let mut handles = Vec::new();
     debug!("Starting threads to delete directories");
-    for dir in dirs {
+    for mut dir in dirs {
         info!("Deleting {dir}");
         let handle = dir.delete_dir();
         handles.push(handle);

@@ -46,13 +46,30 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .dirs
         .items
         .iter()
-        .map(|i| ListItem::new(i.to_string()).style(Style::default()))
+        .map(|i| {
+            let is_deleting = i.is_deleting();
+            let is_deleted = i.is_deleted();
+            let item_text = if is_deleting {
+                format!("{i} [DELETING...]")
+            } else if is_deleted {
+                format!("{i} [DELETED]")
+            } else {
+                i.to_string()
+            };
+            let item_style = if is_deleting {
+                Style::default().fg(Color::Yellow)
+            } else if is_deleted {
+                Style::default().fg(Color::Green)
+            } else {
+                Style::default().fg(Color::White)
+            };
+            ListItem::new(item_text).style(item_style)
+        })
         .collect();
 
     let items = List::new(items)
         .block(Block::default().borders(Borders::ALL).title("Directories"))
-        .highlight_style(Style::default().fg(Color::Red).add_modifier(Modifier::BOLD))
-        .highlight_symbol(">> ");
+        .highlight_style(Style::default().fg(Color::Red).add_modifier(Modifier::BOLD));
     f.render_stateful_widget(items, chunks[2], &mut app.dirs.state);
 
     // Draw help
