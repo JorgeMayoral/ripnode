@@ -75,6 +75,9 @@ impl Dir {
 
     pub fn delete_dir(&mut self) -> thread::JoinHandle<()> {
         let dir = self.to_owned();
+        if self.is_deleting || self.is_deleted {
+            return thread::spawn(|| {});
+        };
         self.is_deleting = true;
         thread::spawn(move || {
             fs::remove_dir_all(dir.path()).unwrap_or_else(|_| {

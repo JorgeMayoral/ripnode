@@ -102,7 +102,9 @@ impl App {
         let selected = self.dirs.state.selected();
         if let Some(selected) = selected {
             let dir = &mut self.dirs.items[selected];
-            self.saved_space += dir.size().parse::<ByteSize>().unwrap().0;
+            if !dir.is_deleted() && !dir.is_deleting() {
+                self.saved_space += dir.size().parse::<ByteSize>().unwrap().0;
+            }
             let handle = dir.delete_dir();
             self.dirs.handles.push(handle);
         }
