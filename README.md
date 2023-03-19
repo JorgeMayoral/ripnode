@@ -38,6 +38,17 @@ ripnode [OPTIONS]
   -V, --version          Print version
 ```
 
+### Controls
+
+#### Interactive mode
+
+| Key            | Action    |
+|----------------|-----------|
+| `j, s, ↓`      | Move down |
+| `k, w, ↑`      | Move up   |
+| `space, enter` | Delete    |
+| `q, esc`       | Quit      |
+
 ## Purpose
 
 This is a learning exercise for me to learn Rust and keeping up with its ecosystem.
