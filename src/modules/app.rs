@@ -66,20 +66,16 @@ pub struct App {
 impl App {
     pub fn new(dirs: Vec<Dir>) -> App {
         App {
-            title: "
+            title: r#"
+██████╗ ██╗██████╗ ███╗   ██╗ ██████╗ ██████╗ ███████╗
+██╔══██╗██║██╔══██╗████╗  ██║██╔═══██╗██╔══██╗██╔════╝
+██████╔╝██║██████╔╝██╔██╗ ██║██║   ██║██║  ██║█████╗
+██╔══██╗██║██╔═══╝ ██║╚██╗██║██║   ██║██║  ██║██╔══╝
+██║  ██║██║██║     ██║ ╚████║╚██████╔╝██████╔╝███████╗
+╚═╝  ╚═╝╚═╝╚═╝     ╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝
 
- ██▀███   ██▓ ██▓███   ███▄    █  ▒█████  ▓█████▄ ▓█████
-▓██ ▒ ██▒▓██▒▓██░  ██▒ ██ ▀█   █ ▒██▒  ██▒▒██▀ ██▌▓█   ▀
-▓██ ░▄█ ▒▒██▒▓██░ ██▓▒▓██  ▀█ ██▒▒██░  ██▒░██   █▌▒███
-▒██▀▀█▄  ░██░▒██▄█▓▒ ▒▓██▒  ▐▌██▒▒██   ██░░▓█▄   ▌▒▓█  ▄
-░██▓ ▒██▒░██░▒██▒ ░  ░▒██░   ▓██░░ ████▓▒░░▒████▓ ░▒████▒
-░ ▒▓ ░▒▓░░▓  ▒▓▒░ ░  ░░ ▒░   ▒ ▒ ░ ▒░▒░▒░  ▒▒▓  ▒ ░░ ▒░ ░
-  ░▒ ░ ▒░ ▒ ░░▒ ░     ░ ░░   ░ ▒░  ░ ▒ ▒░  ░ ▒  ▒  ░ ░  ░
-  ░░   ░  ▒ ░░░          ░   ░ ░ ░ ░ ░ ▒   ░ ░  ░    ░
-   ░      ░                    ░     ░ ░     ░       ░  ░
-                                           ░
 
-    ",
+"#,
             should_quit: false,
             dirs: StatefulList::with_items(dirs),
             saved_space: 0,
@@ -105,8 +101,12 @@ impl App {
             if !dir.is_deleted() && !dir.is_deleting() {
                 self.saved_space += dir.size().parse::<ByteSize>().unwrap().0;
             }
-            let handle = dir.delete_dir();
+            let mut dir_to_delete = dir.clone();
+            let handle = std::thread::spawn(move || {
+                dir_to_delete.delete_dir();
+            });
             self.dirs.handles.push(handle);
+            dir.set_deleting(true);
         }
     }
 
@@ -128,11 +128,13 @@ impl App {
             if poll(Duration::from_millis(100))? {
                 if let Event::Key(key) = crossterm::event::read()? {
                     match key.code {
-                        KeyCode::Char('q') => self.on_quit(),
-                        KeyCode::Left => self.dirs.unselect(),
-                        KeyCode::Down => self.on_down(),
-                        KeyCode::Up => self.on_up(),
-                        KeyCode::Enter | KeyCode::Backspace => self.on_delete(),
+                        KeyCode::Char('q') | KeyCode::Esc => self.on_quit(),
+                        KeyCode::Left | KeyCode::Char('h') => self.dirs.unselect(),
+                        KeyCode::Down | KeyCode::Char('j') => self.on_down(),
+                        KeyCode::Up | KeyCode::Char('k') => self.on_up(),
+                        KeyCode::Enter | KeyCode::Backspace | KeyCode::Char(' ') => {
+                            self.on_delete()
+                        }
                         _ => {}
                     }
                 }

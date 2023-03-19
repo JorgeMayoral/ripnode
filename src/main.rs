@@ -102,7 +102,9 @@ fn delete_directories(dirs: Vec<Dir>) {
     debug!("Starting threads to delete directories");
     for mut dir in dirs {
         info!("Deleting {dir}");
-        let handle = dir.delete_dir();
+        let handle = std::thread::spawn(move || {
+            dir.delete_dir();
+        });
         handles.push(handle);
     }
     debug!("All threads started");

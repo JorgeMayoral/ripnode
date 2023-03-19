@@ -3,7 +3,7 @@ use log::{error, info};
 use std::error::Error;
 use std::fmt::Display;
 use std::path::{Path, PathBuf};
-use std::{env, fs, thread};
+use std::{env, fs};
 
 #[derive(Clone)]
 pub struct Dir {
@@ -66,6 +66,10 @@ impl Dir {
         self.is_deleted
     }
 
+    pub fn set_deleting(&mut self, is_deleting: bool) {
+        self.is_deleting = is_deleting;
+    }
+
     pub fn sum_dirs_size(dirs: &[Self]) -> String {
         let sum = dirs
             .iter()
@@ -73,18 +77,15 @@ impl Dir {
         ByteSize::b(sum).to_string()
     }
 
-    pub fn delete_dir(&mut self) -> thread::JoinHandle<()> {
+    pub fn delete_dir(&mut self) {
         let dir = self.to_owned();
         if self.is_deleting || self.is_deleted {
-            return thread::spawn(|| {});
+            return;
         };
-        self.is_deleting = true;
-        thread::spawn(move || {
-            fs::remove_dir_all(dir.path()).unwrap_or_else(|_| {
-                error!("Failed to delete {}", dir.path().to_string_lossy());
-                std::process::exit(1);
-            });
-        })
+        fs::remove_dir_all(dir.path()).unwrap_or_else(|_| {
+            error!("Failed to delete {}", dir.path().to_string_lossy());
+            std::process::exit(1);
+        });
     }
 
     pub fn still_exists(&mut self) {
@@ -159,8 +160,7 @@ mod tests {
         create_test_dir();
         let dirs = Dir::get_dirs(Path::new("./"), None, "test_dir".to_string()).unwrap();
         let mut dir = dirs[0].to_owned();
-        let handle = dir.delete_dir();
-        handle.join().unwrap();
+        dir.delete_dir();
         assert!(!dir.path.exists());
     }
 }
