@@ -14,10 +14,10 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
         .direction(Direction::Vertical)
         .constraints(
             [
-                Constraint::Percentage(30),
-                Constraint::Percentage(10),
-                Constraint::Percentage(55),
-                Constraint::Percentage(5),
+                Constraint::Length(8),
+                Constraint::Length(2),
+                Constraint::Min(1),
+                Constraint::Length(3),
             ]
             .as_ref(),
         )
@@ -26,7 +26,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
     // Draw title
     let paragraph = Paragraph::new(app.title)
         .style(Style::default().fg(Color::Red))
-        .alignment(Alignment::Center);
+        .alignment(Alignment::Left);
     f.render_widget(paragraph, chunks[0]);
 
     // Draw total size
@@ -73,7 +73,7 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
     f.render_stateful_widget(items, chunks[2], &mut app.dirs.state);
 
     // Draw help
-    let paragraph = Paragraph::new("Use arrow keys to navigate. Press 'enter' to delete selected directory. Press 'q' to quit.")
+    let paragraph = Paragraph::new("Select: <↑↓>\nDelete: <enter>\nQuit: <q>")
         .style(Style::default().fg(Color::White))
         .alignment(Alignment::Left);
     f.render_widget(paragraph, chunks[3]);
