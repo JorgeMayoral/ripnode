@@ -18,7 +18,7 @@ name = "ripnode"
 
 [dependencies]
 bytesize = "1.2.0"
-clap = { version = "4.2.4", features = ["derive"] }
+clap = { version = "4.3.0", features = ["derive"] }
 clap-verbosity-flag = "2.0.1"
 crossterm = "0.26.1"
 env_logger = "0.10.0"
