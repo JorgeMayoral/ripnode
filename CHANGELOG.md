@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.5](https://github.com/JorgeMayoral/ripnode/compare/v1.1.4...v1.1.5) - 2023-07-04
+
+### Other
+- remove rust nightly
+- fix oranda config
+- use default style
+- fix readme
+- add web workflow
+- add oranda page
+- use cargo-dist for releases
+
 ## [1.1.4](https://github.com/JorgeMayoral/ripnode/compare/v1.1.3...v1.1.4) - 2023-06-28
 
 ### Other
