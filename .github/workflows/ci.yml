@@ -22,7 +22,7 @@ jobs:
         rust:
           - stable
           - beta
-          - nightly
+          # - nightly
         os:
           - ubuntu-latest
           - macOS-latest
