@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.5](https://github.com/JorgeMayoral/ripnode/compare/v1.1.4...v1.1.5) - 2023-07-04
 
 ### Other
+<<<<<<< Updated upstream
+=======
+- *(deps)* bump clap from 4.3.8 to 4.3.10 ([#38](https://github.com/JorgeMayoral/ripnode/pull/38))
+>>>>>>> Stashed changes
 - remove rust nightly
 - fix oranda config
 - use default style
