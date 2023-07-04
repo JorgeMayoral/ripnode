@@ -1,4 +1,8 @@
+<div class="oranda-hide">
+
 # ripnode
+
+</div>
 
 Simple tool for deleting node_modules and other folders
 
@@ -7,6 +11,8 @@ Simple tool for deleting node_modules and other folders
 ![Continuous integration](https://github.com/JorgeMayoral/ripnode/workflows/Continuous%20integration/badge.svg)
 [![](https://img.shields.io/crates/v/ripnode.svg)](https://crates.io/crates/ripnode)
 
+<div class="oranda-hide">
+
 ## Installation
 
 ### Cargo
@@ -14,6 +20,8 @@ Simple tool for deleting node_modules and other folders
 ```sh
 cargo install ripnode
 ```
+
+</div>
 
 ## Usage
 

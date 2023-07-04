@@ -1,0 +1,15 @@
+{
+  "components": {
+    "changelog": true,
+    "artifacts": {
+      "package_managers": {
+        "preferred": {
+          "cargo": "cargo install ripnode"
+        }
+      }
+    }
+  },
+  "build": {
+    "path_prefix": "ripnode"
+  }
+}
