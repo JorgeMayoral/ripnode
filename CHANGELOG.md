@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.6](https://github.com/JorgeMayoral/ripnode/compare/v1.1.5...v1.1.6) - 2023-07-17
+
+### Other
+- remove public folder
+- *(deps)* bump clap from 4.3.11 to 4.3.12 ([#45](https://github.com/JorgeMayoral/ripnode/pull/45))
+- *(deps)* bump JamesIves/github-pages-deploy-action ([#44](https://github.com/JorgeMayoral/ripnode/pull/44))
+- *(deps)* bump clap from 4.3.10 to 4.3.11 ([#42](https://github.com/JorgeMayoral/ripnode/pull/42))
+- *(deps)* bump JamesIves/github-pages-deploy-action ([#41](https://github.com/JorgeMayoral/ripnode/pull/41))
+
 ## [1.1.5](https://github.com/JorgeMayoral/ripnode/compare/v1.1.4...v1.1.5) - 2023-07-04
 
 ### Other
