@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.7](https://github.com/JorgeMayoral/ripnode/compare/v1.1.6...v1.1.7) - 2023-07-27
+
+### Other
+- update workflows
+- *(deps)* bump clap from 4.3.12 to 4.3.19 ([#47](https://github.com/JorgeMayoral/ripnode/pull/47))
+- upgrade oranda version
+
 ## [1.1.6](https://github.com/JorgeMayoral/ripnode/compare/v1.1.5...v1.1.6) - 2023-07-17
 
 ### Other
