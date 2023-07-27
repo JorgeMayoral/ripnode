@@ -6,7 +6,8 @@
         "preferred": {
           "cargo": "cargo install ripnode"
         }
-      }
+      },
+      "cargo_dist": true
     }
   },
   "build": {
