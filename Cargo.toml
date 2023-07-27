@@ -1,6 +1,6 @@
 [package]
 name = "ripnode"
-version = "1.1.6"
+version = "1.1.7"
 description = "Simple tool for deleting node_modules and other folders"
 license = "MIT OR Apache-2.0"
 authors = ["Jorge Mayoral Álvarez <mayoralalvarezj@gmail.com>"]
