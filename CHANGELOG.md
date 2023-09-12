@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.8](https://github.com/JorgeMayoral/ripnode/compare/v1.1.7...v1.1.8) - 2023-09-11
+
+### Other
+- *(deps)* bump actions/checkout from 3 to 4 ([#56](https://github.com/JorgeMayoral/ripnode/pull/56))
+- *(deps)* bump clap from 4.4.0 to 4.4.2 ([#55](https://github.com/JorgeMayoral/ripnode/pull/55))
+- *(deps)* bump bytesize from 1.2.0 to 1.3.0 ([#54](https://github.com/JorgeMayoral/ripnode/pull/54))
+- *(deps)* bump clap from 4.3.23 to 4.4.0 ([#53](https://github.com/JorgeMayoral/ripnode/pull/53))
+- *(deps)* bump clap from 4.3.21 to 4.3.23 ([#52](https://github.com/JorgeMayoral/ripnode/pull/52))
+- *(deps)* bump clap from 4.3.19 to 4.3.21 ([#51](https://github.com/JorgeMayoral/ripnode/pull/51))
+- *(deps)* bump log from 0.4.19 to 0.4.20 ([#50](https://github.com/JorgeMayoral/ripnode/pull/50))
+- *(deps)* bump crossterm from 0.26.1 to 0.27.0 ([#49](https://github.com/JorgeMayoral/ripnode/pull/49))
+- allow dispatch release
+
 ## [1.1.7](https://github.com/JorgeMayoral/ripnode/compare/v1.1.6...v1.1.7) - 2023-07-27
 
 ### Other
