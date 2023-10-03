@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.9](https://github.com/JorgeMayoral/ripnode/compare/v1.1.8...v1.1.9) - 2023-10-03
+
+### Other
+- *(deps)* bump clap from 4.4.2 to 4.4.6 ([#60](https://github.com/JorgeMayoral/ripnode/pull/60))
+
 ## [1.1.8](https://github.com/JorgeMayoral/ripnode/compare/v1.1.7...v1.1.8) - 2023-09-11
 
 ### Other
