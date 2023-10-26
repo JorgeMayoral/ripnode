@@ -9,8 +9,8 @@ use crossterm::terminal::{
 use log::{debug, error, info};
 use std::env;
 use std::error::Error;
-use tui::backend::CrosstermBackend;
-use tui::Terminal;
+use ratatui::backend::CrosstermBackend;
+use ratatui::Terminal;
 
 mod modules;
 

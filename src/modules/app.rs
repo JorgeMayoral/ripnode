@@ -4,9 +4,9 @@ use bytesize::ByteSize;
 use crossterm::event::{poll, Event, KeyCode};
 use std::io::Stdout;
 use std::time::Duration;
-use tui::backend::CrosstermBackend;
-use tui::widgets::ListState;
-use tui::Terminal;
+use ratatui::backend::CrosstermBackend;
+use ratatui::widgets::ListState;
+use ratatui::Terminal;
 
 pub struct StatefulList {
     pub state: ListState,

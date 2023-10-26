@@ -1,15 +1,13 @@
 use crate::modules::app::App;
 use crate::modules::dir::Dir;
 use bytesize::ByteSize;
-use std::io::Stdout;
-use tui::backend::CrosstermBackend;
-use tui::layout::{Alignment, Constraint, Direction, Layout};
-use tui::style::{Color, Modifier, Style};
-use tui::text::Spans;
-use tui::widgets::{Block, Borders, List, ListItem, Paragraph};
-use tui::Frame;
+use ratatui::layout::{Alignment, Constraint, Direction, Layout};
+use ratatui::style::{Color, Modifier, Style};
+use ratatui::text::Line;
+use ratatui::widgets::{Block, Borders, List, ListItem, Paragraph};
+use ratatui::Frame;
 
-pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
+pub fn draw_ui(f: &mut Frame, app: &mut App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints(
@@ -33,8 +31,8 @@ pub fn draw_ui(f: &mut Frame<CrosstermBackend<Stdout>>, app: &mut App) {
     let total_size = Dir::sum_dirs_size(&app.dirs.items);
     let saved_space = ByteSize::b(app.saved_space).to_string();
     let text = vec![
-        Spans::from(format!("Total size: {}", total_size)),
-        Spans::from(format!("Saved space: {}", saved_space)),
+        Line::from(format!("Total size: {}", total_size)),
+        Line::from(format!("Saved space: {}", saved_space)),
     ];
     let paragraph = Paragraph::new(text)
         .style(Style::default().fg(Color::White))
