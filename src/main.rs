@@ -7,10 +7,10 @@ use crossterm::terminal::{
     disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen,
 };
 use log::{debug, error, info};
-use std::env;
-use std::error::Error;
 use ratatui::backend::CrosstermBackend;
 use ratatui::Terminal;
+use std::env;
+use std::error::Error;
 
 mod modules;
 
