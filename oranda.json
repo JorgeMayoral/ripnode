@@ -1,6 +1,5 @@
 {
   "components": {
-    "changelog": true,
     "artifacts": {
       "package_managers": {
         "preferred": {
