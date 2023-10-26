@@ -2,11 +2,11 @@ use crate::modules::dir::Dir;
 use crate::modules::ui::draw_ui;
 use bytesize::ByteSize;
 use crossterm::event::{poll, Event, KeyCode};
-use std::io::Stdout;
-use std::time::Duration;
 use ratatui::backend::CrosstermBackend;
 use ratatui::widgets::ListState;
 use ratatui::Terminal;
+use std::io::Stdout;
+use std::time::Duration;
 
 pub struct StatefulList {
     pub state: ListState,
