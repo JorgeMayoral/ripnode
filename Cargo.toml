@@ -18,13 +18,13 @@ name = "ripnode"
 
 [dependencies]
 bytesize = "1.3.0"
-clap = { version = "4.5.6", features = ["derive"] }
+clap = { version = "4.5.16", features = ["derive"] }
 clap-verbosity-flag = "2.2.1"
 crossterm = "0.27.0"
 env_logger = "0.10.2"
 fs_extra = "1.3.0"
 log = "0.4.22"
-ratatui = "0.26.3"
+ratatui = "0.27.0"
 
 [profile.release]
 strip = true
